@@ -598,8 +598,13 @@ Should you require any further information, please feel free to contact me at th
     // Draw signature line
     doc.setLineWidth(0.3);
     doc.line(140, currentY + 25, 190, currentY + 25);
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const year = today.getFullYear();
 
-    doc.save("quotation.pdf");
+    const formattedDate = `${day}-${month}-${year}`;
+    doc.save(`${quotationData.customerInfo.name}_quotation_${formattedDate}.pdf`);
 
     // Show Bootstrap modal on success
     const modal = new bootstrap.Modal(document.getElementById('pdfSuccessModal'));
