@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quotation</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .readonly-highlight {
+      font-weight: bold;
+      background-color: #ffeeba;
+      border-color: #ffc107;
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+
+  <div class="container py-5">
+    <h1 class="mb-4 text-center">Quotation</h1>
+    <div class="mb-2">
+      <div class="row align-items-center">
+        <div class="col-md-8 col-12">
+          <h3 class="mb-1">Sharda Windows</h3>
+          <div>Address: A-324, Vijay Vihar, Phase 1, Sector 4, Delhi, 110085</div>
+          <div class="mt-2"><strong>Specialist in:</strong> UPVC Windows & Plated Mesh</div>
+          <div class="mt-2"><strong>GST Number:</strong> 9876543121</div>
+          <div>Marketing Manager: Abhishek Srivastava</div>
+          <div>Website: <a target="_blank" href="https://upvcwindowsandpleatedmesh.in">upvcwindowsandpleatedmesh.in</a></div>
+          <div>Phone: +91-8750101290</div>
+
+
+        </div>
+        <div class="col-md-4 col-12 text-md-end text-center">
+          <img src="logo.png" alt="Sharda Windows Logo" style="max-width:120px; height:auto;">
+        </div>
+      </div>
+    </div>
+    <form id="inventoryForm" class="bg-white p-4 rounded shadow-sm">
+      <div class="row g-3 border rounded p-3 mb-3"
+        style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+        <div class="col-md-6">
+          <label for="customerName" class="form-label">Customer Name</label>
+          <input type="text" id="customerName" name="Customer Name" class="form-control" placeholder="Customer Name"
+            required />
+        </div>
+        <div class="col-md-6">
+          <label for="customerPhone" class="form-label">Customer Phone Number</label>
+          <input type="tel" id="customerPhone" name="Customer Phone Number" class="form-control"
+            placeholder="Phone Number" pattern="[0-9]{10}" />
+        </div>
+        <div class="col-md-6">
+          <label for="customerAddress" class="form-label">Customer Address</label>
+          <textarea id="customerAddress" name="Customer Address" class="form-control" placeholder="Address"
+            rows="2"></textarea>
+        </div>
+      </div>
+      <div class="row g-3 border rounded p-3 mb-3"
+        style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+        <div class="col-md-6">
+          <label for="itemName" class="form-label">Item Name</label>
+          <input type="text" id="itemName" name="Item Name" class="form-control" placeholder="Item Name" required />
+        </div>
+        <div class="col-md-6">
+          <label for="quantity" class="form-label">Quantity</label>
+          <input type="number" id="quantity" name="Quantity" class="form-control" placeholder="Quantity" min="1"
+            required />
+        </div>
+        <div class="col-md-6">
+          <label for="amount" class="form-label">Amount (per unit)</label>
+          <input type="number" id="amount" name="Amount" class="form-control" placeholder="Amount per unit" min="0"
+            step="0.01" required />
+        </div>
+        <div class="col-md-6">
+          <label for="totalPrice" class="form-label">Total Price</label>
+          <input type="number" id="totalPrice" name="Total Price" class="form-control readonly-highlight"
+            placeholder="Total Price" readonly />
+        </div>
+        <div class="col-md-12 mt-4">
+          <label class="form-label fw-bold">Product specifications</label>
+          <div class="table-responsive">
+            <table class="table table-bordered align-middle" id="dimensionsGrid">
+              <thead class="table-light">
+                <tr>
+                  <th style="width: 40%;">Details</th>
+                  <th style="width: 40%;">Value</th>
+                  <th style="width: 20%;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="text" class="form-control" placeholder="Detail (e.g. Dimension Type)" /></td>
+                  <td><input type="text" class="form-control" placeholder="Value (e.g. Frame Size from RO)" /></td>
+                  <td>
+                    <button type="button" class="btn btn-danger btn-sm delete-row">Delete</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="text" class="form-control" placeholder="Detail (e.g. Width)" /></td>
+                  <td><input type="text" class="form-control" placeholder="Value (e.g. 80cm)" /></td>
+                  <td>
+                    <button type="button" class="btn btn-danger btn-sm delete-row">Delete</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="text" class="form-control" placeholder="Detail (e.g. Type)" /></td>
+                  <td><input type="text" class="form-control" placeholder="Value (e.g. Sliding)" /></td>
+                  <td>
+                    <button type="button" class="btn btn-danger btn-sm delete-row">Delete</button>
+                    <button type="button" class="btn btn-primary btn-sm ms-2 add-row">Add More</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row g-3 border rounded p-3 mb-3"
+        style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+        <div class="col-md-4">
+          <label for="isAnyDiscount" class="form-label">Any Discount?</label>
+          <select id="isAnyDiscount" name="Is Any Discount" class="form-select">
+            <option value="Already discounted" selected>Already discounted</option>
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="discount" class="form-label">Discount (%)</label>
+          <input type="number" id="discount" name="Discount" class="form-control" placeholder="Discount %" min="0"
+            max="100" step="0.01" />
+        </div>
+        <div class="col-md-4">
+          <label for="priceAfterDiscount" class="form-label">Price After Discount</label>
+          <input type="number" id="priceAfterDiscount" name="Price After Discount"
+            class="form-control readonly-highlight" placeholder="Price After Discount" readonly />
+        </div>
+      </div>
+      <div class="row g-3 border rounded p-3 mb-3"
+        style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+        <div class="col-md-4">
+          <label for="sgstAmount" class="form-label">SGST (9%)</label>
+          <input type="number" id="sgstAmount" name="SGST Amount" class="form-control readonly-highlight"
+            placeholder="SGST Amount" readonly />
+        </div>
+        <div class="col-md-4">
+          <label for="cgstAmount" class="form-label">CGST (9%)</label>
+          <input type="number" id="cgstAmount" name="CGST Amount" class="form-control readonly-highlight"
+            placeholder="CGST Amount" readonly />
+        </div>
+        <div class="col-md-4">
+          <label for="finalPriceWithGst" class="form-label">Final Price (With GST)</label>
+          <input type="number" id="finalPriceWithGst" name="Final Price With GST"
+            class="form-control readonly-highlight" placeholder="Final Price With GST" readonly />
+        </div>
+      </div>
+      <div class="row g-3 border rounded p-3 mb-3"
+        style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+
+        <div class="col-md-12">
+          <div class=" p-2">
+            All window and door styles shown are provisional and can be easily modified to match your exact requirements.
+            Once you confirm your order, the final style selection will be made during the measurement process and full site survey, before frame manufacturing begins.
+
+          </div>
+        </div>
+      </div>
+      <div class="row g-3 border rounded p-3 mb-3"
+        style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+
+        <div class="col-md-12">
+          <label class="form-label fw-bold">Terms and Conditions</label>
+          <button type="button" id="editTermsBtn" class="btn btn-sm btn-primary ms-2">Edit</button>
+          <button type="button" id="saveTermsBtn" class="btn btn-sm btn-success ms-2 d-none">Save</button>
+            <ol id="termsList" class="bg-white p-3 rounded shadow-sm" style="font-size: 0.95rem;">
+            <li style="margin-left: 1.2em;">Transportation : No Inclusive.</li>
+            <li style="margin-left: 1.2em;">Tax: No Inclusive .</li>
+            <li style="margin-left: 1.2em;">Installation Charge : Inclusive.</li>
+            <li style="margin-left: 1.2em;">Glass Specification : As per Quotation..</li>
+            <li style="margin-left: 1.2em;">Hardware: Multipoint locking system & Hardware as Trurky base Best Quaility.</li>
+            <li style="margin-left: 1.2em;">Payment Terms: 100% Advance Payment.</li>
+            <li style="margin-left: 1.2em;">Delivery Period: Delivery will commence after 20 to 25 days from the date of the confirmed order.</li>
+            <li style="margin-left: 1.2em;">Power and scaffolding to be provided by client if necessary.</li>
+            <li style="margin-left: 1.2em;">Chque/DD : IN FAVOUR OF "Sharda Windows" Payable at Delhi.</li>
+            <li style="margin-left: 1.2em;">Kindly note that the above quotation is valid for one month. Total Windows as per Quotation.</li>
+            <li style="margin-left: 1.2em;">Lifting Charges included upto 3rd Floor Only. Above that upto 10th Floor INR 200 per window will be
+              charges Extra.</li>
+            <li style="margin-left: 1.2em;">Fly Screen Mesh and Glass are not covered under warranty.</li>
+            <li style="margin-left: 1.2em;">NCL VEKA PROFILE.</li>
+            </ol>
+          <textarea id="termsEditArea" class="form-control d-none mt-2" rows="10"></textarea>
+        </div>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-success w-100">Generate PDF</button>
+      </div>
+  </div>
+  </form>
+
+  <!-- Read-only quotation data display section -->
+  <div id="quotationDataDisplay" class="bg-white p-4 rounded shadow-sm mt-4" style="display: none;">
+    <h2 class="mb-4 text-center">Generated Quotation Data</h2>
+
+    <!-- Customer Information Section -->
+    <div class="row g-3 border rounded p-3 mb-3"
+      style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+      <div class="col-12">
+        <h5 class="text-primary mb-3">Customer Information</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white">
+            <tbody>
+              <tr>
+                <td class="fw-bold" style="width: 30%;">Customer Name</td>
+                <td id="displayCustomerName"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Phone Number</td>
+                <td id="displayCustomerPhone"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Address</td>
+                <td id="displayCustomerAddress"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item Details Section -->
+    <div class="row g-3 border rounded p-3 mb-3"
+      style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+      <div class="col-12">
+        <h5 class="text-primary mb-3">Item Details</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white">
+            <tbody>
+              <tr>
+                <td class="fw-bold" style="width: 30%;">Item Name</td>
+                <td id="displayItemName"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Quantity</td>
+                <td id="displayQuantity"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Amount (per unit)</td>
+                <td id="displayAmount"></td>
+              </tr>
+              <tr class="table-warning">
+                <td class="fw-bold">Total Price</td>
+                <td id="displayTotalPrice" class="fw-bold"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-12 mt-4">
+        <label class="form-label fw-bold">Product Specifications:</label>
+        <div id="displayProductSpecs" class="table-responsive">
+          <!-- Product specifications will be populated here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div class="row g-3 border rounded p-3 mb-3"
+      style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+      <div class="col-12">
+        <h5 class="text-primary mb-3">Price Summary</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white">
+            <tbody>
+              <tr>
+                <td class="fw-bold" style="width: 60%;">Any Discount Applied?</td>
+                <td id="displayIsAnyDiscount" class="text-end"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Discount Percentage</td>
+                <td id="displayDiscount" class="text-end"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Price After Discount</td>
+                <td id="displayPriceAfterDiscount" class="text-end readonly-highlight"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">SGST Amount (9%)</td>
+                <td id="displaySgstAmount" class="text-end readonly-highlight"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">CGST Amount (9%)</td>
+                <td id="displayCgstAmount" class="text-end readonly-highlight"></td>
+              </tr>
+              <tr class="table-success">
+                <td class="fw-bold">Final Price (With GST)</td>
+                <td id="displayFinalPriceWithGst" class="text-end fw-bold fs-5"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Company Information Section -->
+    <div class="row g-3 border rounded p-3 mb-3"
+      style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+      <div class="col-12">
+        <h5 class="text-primary mb-3">Company Information</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle bg-white">
+            <tbody>
+              <tr>
+                <td class="fw-bold" style="width: 30%;">Company Name</td>
+                <td id="displayCompanyName"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Marketing Manager</td>
+                <td id="displayManager"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Email Address</td>
+                <td id="displayEmail"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Phone Number</td>
+                <td id="displayPhone"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Address</td>
+                <td id="displayAddress"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">GST Number</td>
+                <td id="displayGstNumber"></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Specialization</td>
+                <td>UPVC Windows</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terms and Conditions Section -->
+    <div class="row g-3 border rounded p-3 mb-3"
+      style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+      <div class="col-12">
+        <h5 class="text-primary mb-3">Terms and Conditions</h5>
+        <div id="displayTermsAndConditions" class="bg-white p-3 rounded border">
+          <!-- Terms will be populated here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Generation Date Section -->
+    <div class="row g-3 border rounded p-3 mb-3"
+      style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+      <div class="col-12">
+        <h5 class="text-primary mb-3">Generation Information</h5>
+        <label class="form-label fw-bold">Generated Date:</label>
+        <div id="displayGeneratedDate" class="p-2 bg-white rounded border"></div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <script>
+    // Editable grid logic
+    const dimensionsGrid = document.getElementById('dimensionsGrid').getElementsByTagName('tbody')[0];
+
+    function addRow() {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+      <td><input type="text" class="form-control" placeholder="Detail" /></td>
+      <td><input type="text" class="form-control" placeholder="Value" /></td>
+      <td>
+        <button type="button" class="btn btn-danger btn-sm delete-row">Delete</button>
+        <button type="button" class="btn btn-primary btn-sm ms-2 add-row">Add More</button>
+      </td>
+    `;
+      dimensionsGrid.appendChild(row);
+      updateRowActions();
+    }
+
+    function updateRowActions() {
+      // Remove all add-row buttons except last row
+      const rows = dimensionsGrid.querySelectorAll('tr');
+      rows.forEach((row, idx) => {
+        const addBtn = row.querySelector('.add-row');
+        if (addBtn) addBtn.remove();
+        if (idx === rows.length - 1) {
+          // Only last row gets add-row button
+          const td = row.cells[2];
+          const addBtn = document.createElement('button');
+          addBtn.type = 'button';
+          addBtn.className = 'btn btn-primary btn-sm ms-2 add-row';
+          addBtn.textContent = 'Add More';
+          td.appendChild(addBtn);
+        }
+      });
+    }
+
+    dimensionsGrid.addEventListener('click', function (e) {
+      if (e.target.classList.contains('add-row')) {
+        addRow();
+      }
+      if (e.target.classList.contains('delete-row')) {
+        const row = e.target.closest('tr');
+        if (dimensionsGrid.rows.length > 1) {
+          row.remove();
+          updateRowActions();
+        }
+      }
+    });
+
+    // Initial setup
+    updateRowActions();
+
+
+    const editBtn = document.getElementById('editTermsBtn');
+    const saveBtn = document.getElementById('saveTermsBtn');
+    const termsList = document.getElementById('termsList');
+    const termsEditArea = document.getElementById('termsEditArea');
+
+    editBtn.addEventListener('click', function () {
+      // Convert list items to textarea lines
+      const items = Array.from(termsList.querySelectorAll('li')).map(li => li.textContent);
+      termsEditArea.value = items.join('\n');
+      termsList.classList.add('d-none');
+      termsEditArea.classList.remove('d-none');
+      editBtn.classList.add('d-none');
+      saveBtn.classList.remove('d-none');
+    });
+
+    saveBtn.addEventListener('click', function () {
+      // Convert textarea lines back to list items
+      const lines = termsEditArea.value.split('\n').map(line => line.trim()).filter(line => line);
+      termsList.innerHTML = lines.map(line => `<li>${line}</li>`).join('');
+      termsEditArea.classList.add('d-none');
+      termsList.classList.remove('d-none');
+      saveBtn.classList.add('d-none');
+      editBtn.classList.remove('d-none');
+    });
+    function calculateFields() {
+      const quantity = parseFloat(document.getElementById('quantity').value) || 0;
+      const amount = parseFloat(document.getElementById('amount').value) || 0;
+      const isAnyDiscount = document.getElementById('isAnyDiscount').value;
+      let discount = parseFloat(document.getElementById('discount').value) || 0;
+
+      const totalPrice = quantity * amount;
+      document.getElementById('totalPrice').value = totalPrice.toFixed(2);
+
+      // Set discount to 0 if "Already discounted" or "No" is selected
+      if (isAnyDiscount === 'Already discounted' || isAnyDiscount === 'No') {
+        discount = 0;
+        document.getElementById('discount').value = '0';
+      }
+
+      const priceAfterDiscount = totalPrice * (1 - discount / 100);
+      document.getElementById('priceAfterDiscount').value = priceAfterDiscount.toFixed(2);
+
+      // Calculate SGST and CGST (both 9% of priceAfterDiscount)
+      const sgstAmount = priceAfterDiscount * 0.09;
+      const cgstAmount = priceAfterDiscount * 0.09;
+      const totalGstAmount = sgstAmount + cgstAmount;
+
+      document.getElementById('sgstAmount').value = sgstAmount.toFixed(2);
+      document.getElementById('cgstAmount').value = cgstAmount.toFixed(2);
+
+      const finalPriceWithGst = priceAfterDiscount + totalGstAmount;
+      document.getElementById('finalPriceWithGst').value = finalPriceWithGst.toFixed(2);
+    }
+
+    document.getElementById('quantity').addEventListener('input', calculateFields);
+    document.getElementById('amount').addEventListener('input', calculateFields);
+    document.getElementById('discount').addEventListener('input', calculateFields);
+    document.getElementById('isAnyDiscount').addEventListener('change', calculateFields);
+
+    document.getElementById('inventoryForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const form = e.target;
+
+      // Collect all product specifications from the grid
+      const productSpecs = [];
+      const specRows = document.querySelectorAll('#dimensionsGrid tbody tr');
+      specRows.forEach(row => {
+        const detail = row.cells[0].querySelector('input').value.trim();
+        const value = row.cells[1].querySelector('input').value.trim();
+        if (detail && value) {
+          productSpecs.push({ detail, value });
+        }
+      });
+
+      // Collect all terms and conditions
+      const termsAndConditions = [];
+      const termItems = document.querySelectorAll('#termsList li');
+      termItems.forEach(item => {
+        if (item.textContent.trim()) {
+          termsAndConditions.push(item.textContent.trim());
+        }
+      });
+
+      // Create quotationData object with all form data
+      const quotationData = {
+        customerInfo: {
+          name: document.getElementById('customerName').value,
+          phone: document.getElementById('customerPhone').value,
+          address: document.getElementById('customerAddress').value
+        },
+        itemDetails: {
+          itemName: document.getElementById('itemName').value,
+          quantity: parseFloat(document.getElementById('quantity').value) || 0,
+          amountPerUnit: parseFloat(document.getElementById('amount').value) || 0,
+          totalPrice: parseFloat(document.getElementById('totalPrice').value) || 0
+        },
+        productSpecifications: productSpecs,
+        pricing: {
+          isAnyDiscount: document.getElementById('isAnyDiscount').value,
+          discountPercentage: parseFloat(document.getElementById('discount').value) || 0,
+          priceAfterDiscount: parseFloat(document.getElementById('priceAfterDiscount').value) || 0,
+          sgstAmount: parseFloat(document.getElementById('sgstAmount').value) || 0,
+          cgstAmount: parseFloat(document.getElementById('cgstAmount').value) || 0,
+          finalPriceWithGst: parseFloat(document.getElementById('finalPriceWithGst').value) || 0
+        },
+        termsAndConditions: termsAndConditions,
+        companyInfo: {
+          name: "Sharda Windows",
+          manager: "Abhishek Srivastava",
+          email: "info@shardawindows.com",
+          phone: "+91-8750101290",
+          address: "A-324, Vijay Vihar, Phase 1, Sector 4, Delhi, 110085",
+          specialty: "UPVC Windows & Plated Mesh",
+          gstNumber: "9876543121"
+        },
+        welcomeNote: `Dear Sir/Madam,
+Thank you for giving my company the opportunity to provide you with the following quotation for your perusal. 
+Should you require any further information, please feel free to contact me at the above number.`,
+        notes: `All window and door styles shown are provisional and can be easily modified to match your exact requirements. Once you confirm your order, the final style selection will be made during the measurement process and full site survey, before frame manufacturing begins.
+`,
+        generatedDate: new Date().toISOString()
+      };
+      // Display the quotation data in read-only format
+      // Console log the quotation data
+      console.log('Quotation Data:', quotationData);
+
+      // Populate the read-only display section
+      // populateQuotationDisplay(quotationData);
+
+      // Function to load image and generate PDF
+      async function generatePDFWithLogo() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Function to check if we need a new page and add one if necessary
+        function checkPageBreak(requiredSpace = 20) {
+          if (currentY + requiredSpace > 280) { // Page height is approximately 280
+            doc.addPage();
+            currentY = 20; // Reset to top of new page
+            return true;
+          }
+          return false;
+        }
+
+        // Function to convert image to base64
+        function getImageBase64(src) {
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous'; // Handle CORS
+            img.onload = function () {
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              canvas.width = img.width;
+              canvas.height = img.height;
+              ctx.drawImage(img, 0, 0);
+              try {
+                const dataURL = canvas.toDataURL('image/png');
+                resolve({ dataURL, width: img.width, height: img.height });
+              } catch (e) {
+                reject(e);
+              }
+            };
+            img.onerror = () => reject(new Error('Image failed to load'));
+            img.src = src;
+          });
+        }
+
+        // Try to load and add logo
+        let logoData = null;
+        try {
+          logoData = await getImageBase64('logo.png');
+          console.log('Logo loaded successfully');
+        } catch (error) {
+          console.log('Logo not found or failed to load:', error.message);
+        }
+
+        // Header section with or without logo
+        doc.setFontSize(20);
+        doc.setFont(undefined, "bold");
+        doc.text("Quotation", 105, 20, { align: "center" });
+
+        // Company information on left side (matching HTML order)
+        doc.setFontSize(12);
+        doc.setFont(undefined, "normal");
+        doc.text("Sharda Windows", 20, 35);
+        doc.text("Address: A-324, Vijay Vihar, Phase 1, Sector 4, Delhi, 110085", 20, 42);
+        doc.text("Specialist in: UPVC Windows & Plated Mesh", 20, 49);
+        doc.text("GST Number: 9876543121", 20, 56);
+        doc.text("Marketing Manager: Abhishek Srivastava", 20, 63);
+        doc.text("Website: upvcwindowsandpleatedmesh.in", 20, 70);
+        doc.text("Phone: +91-8750101290", 20, 77);
+
+
+
+        // Add logo on right side if available
+        if (logoData) {
+          try {
+            const maxWidth = 30;
+            const aspectRatio = logoData.height / logoData.width;
+            const logoWidth = maxWidth;
+            const logoHeight = logoWidth * aspectRatio;
+
+            // Position logo on right side (x: 160, y: 35)
+            doc.addImage(logoData.dataURL, 'PNG', 160, 35, logoWidth, logoHeight);
+            console.log('Logo added to PDF successfully');
+          } catch (error) {
+            console.log('Error adding logo to PDF:', error.message);
+          }
+        }
+
+        // Divider line
+        doc.setLineWidth(0.5);
+        doc.line(20, 84, 190, 84);
+
+        let currentY = 94;
+
+        // Quotation Information Section
+        checkPageBreak(30); // Check if we need space for the section
+        doc.setFontSize(14);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(40, 116, 166); // Blue color for headers
+        doc.text("Quotation Information", 20, currentY);
+        currentY += 10;
+
+        // Generate quotation ID and date
+        const quotationId = `QT-${Date.now().toString().slice(-6)}`;
+        const quotationDate = new Date().toLocaleDateString();
+
+        // Quotation Information Table
+        doc.setTextColor(0, 0, 0); // Reset to black
+        doc.setFont(undefined, "normal");
+        doc.setFontSize(10);
+
+        const quotationInfo = [
+          ["Quotation ID", quotationId],
+          ["Quotation Date", quotationDate]
+        ];
+
+        quotationInfo.forEach((row, index) => {
+          checkPageBreak(10); // Check before each row
+          const rowY = currentY;
+          // Draw light gray background for rows
+          doc.setFillColor(250, 250, 250);
+          doc.rect(20, rowY - 5, 170, 7, 'F');
+          // Draw thinner border
+          doc.setDrawColor(200, 200, 200);
+          doc.setLineWidth(0.2);
+          doc.rect(20, rowY - 5, 170, 7, 'S');
+          doc.rect(20, rowY - 5, 60, 7, 'S'); // Separator line
+
+          // Add text
+          doc.setFont(undefined, "bold");
+          doc.text(row[0], 22, rowY);
+          doc.setFont(undefined, "normal");
+          doc.text(row[1], 82, rowY);
+          currentY += 8;
+        });
+        currentY += 15;
+
+        // Customer Information Section
+        checkPageBreak(40); // Check if we need space for the section
+        doc.setFontSize(14);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(40, 116, 166); // Blue color for headers
+        doc.text("Customer Information", 20, currentY);
+        currentY += 10;
+
+        // Customer Information Table
+        doc.setTextColor(0, 0, 0); // Reset to black
+        doc.setFont(undefined, "normal");
+        doc.setFontSize(10);
+
+        const customerData = [
+          ["Customer Name", quotationData.customerInfo.name || 'N/A'],
+          ["Phone Number", quotationData.customerInfo.phone || 'N/A'],
+          ["Address", quotationData.customerInfo.address || 'N/A']
+        ];
+
+        customerData.forEach((row, index) => {
+          checkPageBreak(10); // Check before each row
+          const rowY = currentY;
+          // Draw light gray background for rows
+          doc.setFillColor(250, 250, 250);
+          doc.rect(20, rowY - 5, 170, 7, 'F');
+          // Draw thinner border
+          doc.setDrawColor(200, 200, 200);
+          doc.setLineWidth(0.2);
+          doc.rect(20, rowY - 5, 170, 7, 'S');
+          doc.rect(20, rowY - 5, 60, 7, 'S'); // Separator line
+
+          // Add text
+          doc.setFont(undefined, "bold");
+          doc.text(row[0], 22, rowY);
+          doc.setFont(undefined, "normal");
+          doc.text(row[1], 82, rowY);
+          currentY += 8;
+        });
+        currentY += 15;
+
+        // Welcome Note Section
+        if (quotationData.welcomeNote) {
+          doc.setFontSize(10);
+          doc.setFont(undefined, "normal");
+          doc.setTextColor(0, 0, 0);
+
+          // Split the welcome note text to fit within page width
+          const welcomeText = doc.splitTextToSize(quotationData.welcomeNote, 170);
+          const requiredSpace = welcomeText.length * 5;
+          checkPageBreak(requiredSpace);
+
+          doc.text(welcomeText, 20, currentY);
+          currentY += requiredSpace + 15;
+        }
+
+        // Item Details Section
+        checkPageBreak(50); // Check if we need space for the section
+        doc.setFontSize(14);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(40, 116, 166); // Blue color for headers
+        doc.text("Item Details", 20, currentY);
+        currentY += 10;
+
+        // Item Details Table
+        doc.setTextColor(0, 0, 0); // Reset to black
+        doc.setFont(undefined, "normal");
+        doc.setFontSize(10);
+
+        const itemData = [
+          ["Item Name", quotationData.itemDetails.itemName || 'N/A'],
+          ["Quantity", quotationData.itemDetails.quantity.toString()],
+          ["Amount (per unit)", `Rs.${parseFloat(quotationData.itemDetails.amountPerUnit || '0').toFixed(2)}`],
+          ["Total Price", `Rs.${parseFloat(quotationData.itemDetails.totalPrice || '0').toFixed(2)}`]
+        ];
+
+        itemData.forEach((row, index) => {
+          checkPageBreak(10); // Check before each row
+          const rowY = currentY;
+          // Highlight Total Price row with yellow background
+          if (index === 3) {
+            doc.setFillColor(255, 243, 205); // Light yellow for total price
+          } else {
+            doc.setFillColor(250, 250, 250);
+          }
+          doc.rect(20, rowY - 5, 170, 7, 'F');
+          // Draw thinner border
+          doc.setDrawColor(200, 200, 200);
+          doc.setLineWidth(0.2);
+          doc.rect(20, rowY - 5, 170, 7, 'S');
+          doc.rect(20, rowY - 5, 60, 7, 'S'); // Separator line
+
+          // Add text
+          doc.setFont(undefined, "bold");
+          doc.text(row[0], 22, rowY);
+          doc.setFont(undefined, index === 3 ? "bold" : "normal"); // Bold for total price
+          doc.text(row[1], 82, rowY);
+          currentY += 8;
+        });
+        currentY += 5;
+
+        // Product Specifications
+        if (quotationData.productSpecifications && quotationData.productSpecifications.length > 0) {
+          checkPageBreak(20 + (quotationData.productSpecifications.length * 8)); // Check space for header + all specs
+          doc.setFontSize(11);
+          doc.setFont(undefined, "bold");
+          doc.setTextColor(0, 0, 0);
+          doc.text("Product Specifications:", 20, currentY);
+          currentY += 8;
+
+          doc.setFontSize(10);
+          doc.setFont(undefined, "normal");
+          quotationData.productSpecifications.forEach((spec, index) => {
+            checkPageBreak(10); // Check before each specification
+            const rowY = currentY;
+            doc.setFillColor(250, 250, 250);
+            doc.rect(20, rowY - 5, 170, 7, 'F');
+            doc.setDrawColor(200, 200, 200);
+            doc.setLineWidth(0.2);
+            doc.rect(20, rowY - 5, 170, 7, 'S');
+            doc.rect(20, rowY - 5, 85, 7, 'S'); // Separator line
+
+            doc.text(spec.detail, 22, rowY);
+            doc.text(spec.value, 107, rowY); // Left aligned
+            currentY += 8;
+          });
+          currentY += 15;
+        } else {
+          currentY += 10;
+        }
+
+        // Price Summary Section
+        checkPageBreak(70); // Check if we need space for the pricing section
+        doc.setFontSize(14);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(40, 116, 166); // Blue color for headers
+        doc.text("Price Summary", 20, currentY);
+        currentY += 10;
+
+        // Price Summary Table
+        doc.setTextColor(0, 0, 0); // Reset to black
+        doc.setFont(undefined, "normal");
+        doc.setFontSize(10);
+
+        let pricingData = [];
+
+        if (quotationData.pricing.isAnyDiscount === 'Yes') {
+          // Show discount details when discount is applied
+          pricingData = [
+            ["Any Discount Applied?", quotationData.pricing.isAnyDiscount || 'No'],
+            ["Discount Percentage", `${parseFloat(quotationData.pricing.discountPercentage || '0').toFixed(2)}%`],
+            ["Price After Discount", `Rs.${parseFloat(quotationData.pricing.priceAfterDiscount || '0').toFixed(2)}`],
+            ["SGST Amount (9%)", `Rs.${parseFloat(quotationData.pricing.sgstAmount || '0').toFixed(2)}`],
+            ["CGST Amount (9%)", `Rs.${parseFloat(quotationData.pricing.cgstAmount || '0').toFixed(2)}`],
+            ["Final Price (With GST)", `Rs.${parseFloat(quotationData.pricing.finalPriceWithGst || '0').toFixed(2)}`]
+          ];
+        } else {
+          // Show "Already discounted" or "No" when no additional discount is applied
+          pricingData = [
+            ["Any Discount Applied?", quotationData.pricing.isAnyDiscount || 'No'],
+            ["SGST Amount (9%)", `Rs.${parseFloat(quotationData.pricing.sgstAmount || '0').toFixed(2)}`],
+            ["CGST Amount (9%)", `Rs.${parseFloat(quotationData.pricing.cgstAmount || '0').toFixed(2)}`],
+            ["Final Price (With GST)", `Rs.${parseFloat(quotationData.pricing.finalPriceWithGst || '0').toFixed(2)}`]
+          ];
+        }
+
+        pricingData.forEach((row, index) => {
+          checkPageBreak(10); // Check before each pricing row
+          const rowY = currentY;
+
+          // Determine which row is the final price with GST based on discount status
+          let finalPriceWithGstIndex, calculatedValueIndices;
+
+          if (quotationData.pricing.isAnyDiscount === 'Yes') {
+            finalPriceWithGstIndex = 5; // "Final Price (With GST)" is at index 5 when discount is shown
+            calculatedValueIndices = [2, 3, 4]; // Price After Discount, SGST, CGST
+          } else {
+            finalPriceWithGstIndex = 3; // "Final Price (With GST)" is at index 3 when no discount is shown
+            calculatedValueIndices = [1, 2]; // SGST, CGST
+          }
+
+          // Highlight Final Price (With GST) with green background
+          if (index === finalPriceWithGstIndex) {
+            doc.setFillColor(212, 237, 218); // Light green for final price
+          } else if (calculatedValueIndices.includes(index)) {
+            doc.setFillColor(255, 243, 205); // Light yellow for calculated values
+          } else {
+            doc.setFillColor(250, 250, 250);
+          }
+
+          doc.rect(20, rowY - 5, 170, 7, 'F');
+          // Draw thinner border
+          doc.setDrawColor(200, 200, 200);
+          doc.setLineWidth(0.2);
+          doc.rect(20, rowY - 5, 170, 7, 'S');
+          doc.rect(20, rowY - 5, 100, 7, 'S'); // Separator line
+
+          // Add text
+          doc.setFont(undefined, "bold");
+          doc.text(row[0], 22, rowY);
+          doc.setFont(undefined, index === finalPriceWithGstIndex ? "bold" : "normal"); // Bold for final price with GST
+          if (index === finalPriceWithGstIndex) {
+            doc.setFontSize(12); // Larger font for final price
+          }
+          doc.text(row[1], 122, rowY); // Left align values (not right aligned)
+          doc.setFontSize(10); // Reset font size
+          currentY += 8;
+        });
+        currentY += 15;
+
+        // Notes Section
+        if (quotationData.notes) {
+          checkPageBreak(30); // Check space for notes
+          doc.setFontSize(12);
+          doc.setFont(undefined, "bold");
+          doc.setTextColor(40, 116, 166); // Blue color for headers
+          doc.text("Important Notes", 20, currentY);
+          currentY += 8;
+
+          doc.setFontSize(10);
+          doc.setFont(undefined, "normal");
+          doc.setTextColor(0, 0, 0);
+
+          // Split the notes text to fit within page width
+          const notesText = doc.splitTextToSize(quotationData.notes, 170);
+          const requiredSpace = notesText.length * 5;
+          checkPageBreak(requiredSpace);
+
+          // Add light background for notes
+          doc.setFillColor(255, 252, 230);
+          doc.rect(20, currentY - 3, 170, requiredSpace + 6, 'F');
+          doc.setDrawColor(200, 200, 200);
+          doc.setLineWidth(0.2);
+          doc.rect(20, currentY - 3, 170, requiredSpace + 6, 'S');
+
+          doc.text(notesText, 22, currentY + 2);
+          currentY += requiredSpace + 15;
+        }
+
+        // Terms and Conditions Section
+        if (quotationData.termsAndConditions && quotationData.termsAndConditions.length > 0) {
+          checkPageBreak(30); // Check space for terms header
+          doc.setFontSize(14);
+          doc.setFont(undefined, "bold");
+          doc.setTextColor(40, 116, 166); // Blue color for headers
+          doc.text("Terms and Conditions", 20, currentY);
+          currentY += 8;
+
+          doc.setFontSize(9);
+          doc.setFont(undefined, "normal");
+          doc.setTextColor(0, 0, 0);
+
+          quotationData.termsAndConditions.forEach((term, index) => {
+            const termText = `${index + 1}. ${term}`;
+            const splitText = doc.splitTextToSize(termText, 170);
+            const requiredSpace = splitText.length * 4;
+            checkPageBreak(requiredSpace + 5); // Check space for each term
+            doc.text(splitText, 20, currentY);
+            currentY += requiredSpace;
+          });
+          currentY += 8;
+        }
+
+        // Generation Date
+        checkPageBreak(30); // Check space for generation date and signature
+        doc.setFontSize(10);
+        doc.setFont(undefined, "italic");
+        doc.setTextColor(100, 100, 100);
+        const generatedDate = new Date(quotationData.generatedDate);
+        doc.text(`Generated on: ${generatedDate.toLocaleString()}`, 20, currentY);
+        currentY += 15;
+
+        // Divider before signature
+        doc.setLineWidth(0.5);
+        doc.setDrawColor(0, 0, 0);
+        doc.line(20, currentY, 190, currentY);
+
+        // Signature section (right side)
+        doc.setFontSize(12);
+        doc.setFont(undefined, "normal");
+        doc.setTextColor(0, 0, 0);
+        doc.text("Authorized Signature", 140, currentY + 20);
+
+        // Draw signature line
+        doc.setLineWidth(0.3);
+        doc.line(140, currentY + 25, 190, currentY + 25);
+
+        doc.save("quotation.pdf");
+      }
+
+      // Call the function to generate PDF with logo
+      await generatePDFWithLogo();
+    });
+
+    // Initial calculation
+    calculateFields();
+
+    // Function to populate the read-only quotation display
+    function populateQuotationDisplay(data) {
+      // Show the display section
+      document.getElementById('quotationDataDisplay').style.display = 'block';
+
+      // Populate customer information
+      document.getElementById('displayCustomerName').textContent = data.customerInfo.name || 'N/A';
+      document.getElementById('displayCustomerPhone').textContent = data.customerInfo.phone || 'N/A';
+      document.getElementById('displayCustomerAddress').textContent = data.customerInfo.address || 'N/A';
+
+      // Populate item details
+      document.getElementById('displayItemName').textContent = data.itemDetails.itemName || 'N/A';
+      document.getElementById('displayQuantity').textContent = data.itemDetails.quantity || '0';
+      document.getElementById('displayAmount').textContent = `₹${data.itemDetails.amountPerUnit || '0'}`;
+      document.getElementById('displayTotalPrice').textContent = `₹${data.itemDetails.totalPrice || '0'}`;
+
+      // Populate product specifications
+      const specsContainer = document.getElementById('displayProductSpecs');
+      if (data.productSpecifications && data.productSpecifications.length > 0) {
+        let specsTable = `
+          <table class="table table-bordered align-middle">
+            <thead class="table-light">
+              <tr>
+                <th style="width: 50%;">Details</th>
+                <th style="width: 50%;">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+        `;
+        data.productSpecifications.forEach(spec => {
+          specsTable += `
+            <tr>
+              <td class="p-2">${spec.detail}</td>
+              <td class="p-2">${spec.value}</td>
+            </tr>
+          `;
+        });
+        specsTable += `</tbody></table>`;
+        specsContainer.innerHTML = specsTable;
+      } else {
+        specsContainer.innerHTML = '<div class="p-2 bg-white rounded border">No specifications added</div>';
+      }
+
+      // Populate pricing information
+      document.getElementById('displayIsAnyDiscount').textContent = data.pricing.isAnyDiscount || 'No';
+      document.getElementById('displayDiscount').textContent = `${data.pricing.discountPercentage || '0'}%`;
+      document.getElementById('displayPriceAfterDiscount').textContent = `₹${data.pricing.priceAfterDiscount || '0'}`;
+      document.getElementById('displaySgstAmount').textContent = `₹${data.pricing.sgstAmount || '0'}`;
+      document.getElementById('displayCgstAmount').textContent = `₹${data.pricing.cgstAmount || '0'}`;
+      document.getElementById('displayFinalPriceWithGst').textContent = `₹${data.pricing.finalPriceWithGst || '0'}`;
+
+      // Populate company information
+      document.getElementById('displayCompanyName').textContent = data.companyInfo.name || 'N/A';
+      document.getElementById('displayManager').textContent = data.companyInfo.manager || 'N/A';
+      document.getElementById('displayEmail').textContent = data.companyInfo.email || 'N/A';
+      document.getElementById('displayPhone').textContent = data.companyInfo.phone || 'N/A';
+      document.getElementById('displayAddress').textContent = data.companyInfo.address || 'N/A';
+      document.getElementById('displayGstNumber').textContent = data.companyInfo.gstNumber || 'N/A';
+
+      // Populate terms and conditions
+      const termsContainer = document.getElementById('displayTermsAndConditions');
+      if (data.termsAndConditions && data.termsAndConditions.length > 0) {
+        let termsList = '<ol class="mb-0" style="font-size: 0.95rem;">';
+        data.termsAndConditions.forEach(term => {
+          termsList += `<li class="mb-1">${term}</li>`;
+        });
+        termsList += '</ol>';
+        termsContainer.innerHTML = termsList;
+      } else {
+        termsContainer.innerHTML = 'No terms and conditions specified';
+      }
+
+      // Populate generation date
+      const generatedDate = new Date(data.generatedDate);
+      document.getElementById('displayGeneratedDate').textContent = generatedDate.toLocaleString();
+
+      // Scroll to the display section
+      document.getElementById('quotationDataDisplay').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+
+</html>
