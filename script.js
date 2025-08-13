@@ -600,6 +600,10 @@ Should you require any further information, please feel free to contact me at th
     doc.line(140, currentY + 25, 190, currentY + 25);
 
     doc.save("quotation.pdf");
+
+    // Show Bootstrap modal on success
+    const modal = new bootstrap.Modal(document.getElementById('pdfSuccessModal'));
+    modal.show();
   }
 
   // Call the function to generate PDF with logo
