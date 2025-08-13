@@ -26,8 +26,9 @@
           <h3 class="mb-1">Sharda Windows</h3>
           <div>Address: A-324, Vijay Vihar, Phase 1, Sector 4, Delhi, 110085</div>
           <div class="mt-2"><strong>Specialist in:</strong> UPVC Windows & Plated Mesh</div>
-          <div class="mt-2"><strong>GST Number:</strong> 9876543121</div>
+          <div class="mt-2"><strong>GST Number:</strong> 07MMZPS7966J1ZD</div>
           <div>Marketing Manager: Abhishek Srivastava</div>
+          <div>Email: shardawindows@gmail.com</div>
           <div>Website: <a target="_blank" href="https://upvcwindowsandpleatedmesh.in">upvcwindowsandpleatedmesh.in</a></div>
           <div>Phone: +91-8750101290</div>
 
@@ -142,12 +143,12 @@
         style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
         <div class="col-md-4">
           <label for="sgstAmount" class="form-label">SGST (9%)</label>
-          <input type="number" id="sgstAmount" name="SGST Amount" class="form-control readonly-highlight"
+          <input type="number" id="sgstAmount" name="SGST Amount" class="form-control"
             placeholder="SGST Amount" readonly />
         </div>
         <div class="col-md-4">
           <label for="cgstAmount" class="form-label">CGST (9%)</label>
-          <input type="number" id="cgstAmount" name="CGST Amount" class="form-control readonly-highlight"
+          <input type="number" id="cgstAmount" name="CGST Amount" class="form-control"
             placeholder="CGST Amount" readonly />
         </div>
         <div class="col-md-4">
@@ -531,11 +532,11 @@
         companyInfo: {
           name: "Sharda Windows",
           manager: "Abhishek Srivastava",
-          email: "info@shardawindows.com",
+          email: "shardawindows@gmail.com",
           phone: "+91-8750101290",
           address: "A-324, Vijay Vihar, Phase 1, Sector 4, Delhi, 110085",
           specialty: "UPVC Windows & Plated Mesh",
-          gstNumber: "9876543121"
+          gstNumber: "07MMZPS7966J1ZD"
         },
         welcomeNote: `Dear Sir/Madam,
 Thank you for giving my company the opportunity to provide you with the following quotation for your perusal. 
@@ -609,10 +610,11 @@ Should you require any further information, please feel free to contact me at th
         doc.text("Sharda Windows", 20, 35);
         doc.text("Address: A-324, Vijay Vihar, Phase 1, Sector 4, Delhi, 110085", 20, 42);
         doc.text("Specialist in: UPVC Windows & Plated Mesh", 20, 49);
-        doc.text("GST Number: 9876543121", 20, 56);
+        doc.text("GST Number: 07MMZPS7966J1ZD", 20, 56);
         doc.text("Marketing Manager: Abhishek Srivastava", 20, 63);
-        doc.text("Website: upvcwindowsandpleatedmesh.in", 20, 70);
-        doc.text("Phone: +91-8750101290", 20, 77);
+        doc.text("Email: shardawindows@gmail.com", 20, 70);
+        doc.text("Website: upvcwindowsandpleatedmesh.in", 20, 77);
+        doc.text("Phone: +91-8750101290", 20, 84);
 
 
 
@@ -634,9 +636,9 @@ Should you require any further information, please feel free to contact me at th
 
         // Divider line
         doc.setLineWidth(0.5);
-        doc.line(20, 84, 190, 84);
+        doc.line(20, 91, 190, 91);
 
-        let currentY = 94;
+        let currentY = 101;
 
         // Quotation Information Section
         checkPageBreak(30); // Check if we need space for the section
