@@ -7,6 +7,7 @@ const companyInfo = {
   name: "Sharda Windows",
   manager: "Abhishek Srivastava",
   email: "shardawindows@gmail.com",
+  website: 'upvcwindowsandpleatedmesh.in',
   phone: "+91-8750101290",
   address: "A-324, Vijay Vihar, Phase 1, Sector 4, Delhi, 110085",
   specialty: "UPVC Windows & Plated Mesh",
@@ -237,14 +238,14 @@ getById('inventoryForm').addEventListener('submit', async function (e) {
     // Company information on left side (matching HTML order)
     doc.setFontSize(12);
     doc.setFont(undefined, "normal");
-    doc.text("Sharda Windows", 20, 35);
-    doc.text("Address: A-324, Vijay Vihar, Phase 1, Sector 4, Delhi, 110085", 20, 42);
-    doc.text("Specialist in: UPVC Windows & Plated Mesh", 20, 49);
-    doc.text("GST Number: 07MMZPS7966J1ZD", 20, 56);
-    doc.text("Marketing Manager: Abhishek Srivastava", 20, 63);
-    doc.text("Email: shardawindows@gmail.com", 20, 70);
-    doc.text("Website: upvcwindowsandpleatedmesh.in", 20, 77);
-    doc.text("Phone: +91-8750101290", 20, 84);
+    doc.text(companyInfo.name, 20, 35);
+    doc.text(`Address: ${companyInfo.address}`, 20, 42);
+    doc.text(`Specialist in: ${companyInfo.specialty}`, 20, 49);
+    doc.text(`GST Number: ${companyInfo.gstNumber}`, 20, 56);
+    doc.text(`Marketing Manager: ${companyInfo.manager}`, 20, 63);
+    doc.text(`Email: ${companyInfo.email}`, 20, 70);
+    doc.text(`Website: ${companyInfo.website}`, 20, 77);
+    doc.text(`Phone: ${companyInfo.phone}`, 20, 84);
 
     // Add logo on right side if available
     if (logoData) {
