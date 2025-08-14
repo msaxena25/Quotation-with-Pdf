@@ -3,6 +3,20 @@ function getById(id) {
   return document.getElementById(id);
 }
 
+const companyInfo = {
+  name: "Sharda Windows",
+  manager: "Abhishek Srivastava",
+  email: "shardawindows@gmail.com",
+  phone: "+91-8750101290",
+  address: "A-324, Vijay Vihar, Phase 1, Sector 4, Delhi, 110085",
+  specialty: "UPVC Windows & Plated Mesh",
+  gstNumber: "07MMZPS7966J1ZD"
+};
+const welcomeNote = `Dear Sir/Madam,
+Thank you for giving my company the opportunity to provide you with the following quotation for your perusal. 
+Should you require any further information, please feel free to contact me at the above number.`;
+const notes = `All window and door styles shown are provisional and can be easily modified to match your exact requirements. Once you confirm your order, the final style selection will be made during the measurement process and full site survey, before frame manufacturing begins.`
+
 // Editable grid logic
 const dimensionsGrid = getById('dimensionsGrid').getElementsByTagName('tbody')[0];
 
@@ -161,28 +175,12 @@ getById('inventoryForm').addEventListener('submit', async function (e) {
       finalPriceWithGst: parseFloat(getById('finalPriceWithGst').value) || 0
     },
     termsAndConditions: termsAndConditions,
-    companyInfo: {
-      name: "Sharda Windows",
-      manager: "Abhishek Srivastava",
-      email: "shardawindows@gmail.com",
-      phone: "+91-8750101290",
-      address: "A-324, Vijay Vihar, Phase 1, Sector 4, Delhi, 110085",
-      specialty: "UPVC Windows & Plated Mesh",
-      gstNumber: "07MMZPS7966J1ZD"
-    },
-    welcomeNote: `Dear Sir/Madam,
-Thank you for giving my company the opportunity to provide you with the following quotation for your perusal. 
-Should you require any further information, please feel free to contact me at the above number.`,
-    notes: `All window and door styles shown are provisional and can be easily modified to match your exact requirements. Once you confirm your order, the final style selection will be made during the measurement process and full site survey, before frame manufacturing begins.
-`,
+    companyInfo: companyInfo,
+    welcomeNote: welcomeNote,
+    notes: notes
+    ,
     generatedDate: new Date().toISOString()
   };
-  // Display the quotation data in read-only format
-  // Console log the quotation data
-  // console.log('Quotation Data:', quotationData);
-
-  // Populate the read-only display section
-  // populateQuotationDisplay(quotationData);
 
   // Function to load image and generate PDF
   async function generatePDFWithLogo() {
@@ -617,83 +615,3 @@ Should you require any further information, please feel free to contact me at th
 
 // Initial calculation
 calculateFields();
-
-// Function to populate the read-only quotation display
-function populateQuotationDisplay(data) {
-  // Show the display section
-  getById('quotationDataDisplay').style.display = 'block';
-
-  // Populate customer information
-  getById('displayCustomerName').textContent = data.customerInfo.name || 'N/A';
-  getById('displayCustomerPhone').textContent = data.customerInfo.phone || 'N/A';
-  getById('displayCustomerAddress').textContent = data.customerInfo.address || 'N/A';
-
-  // Populate item details
-  getById('displayItemName').textContent = data.itemDetails.itemName || 'N/A';
-  getById('displayQuantity').textContent = data.itemDetails.quantity || '0';
-  getById('displayAmount').textContent = `₹${data.itemDetails.amountPerUnit || '0'}`;
-  getById('displayTotalPrice').textContent = `₹${data.itemDetails.totalPrice || '0'}`;
-
-  // Populate product specifications
-  const specsContainer = getById('displayProductSpecs');
-  if (data.productSpecifications && data.productSpecifications.length > 0) {
-    let specsTable = `
-      <table class="table table-bordered align-middle">
-        <thead class="table-light">
-          <tr>
-            <th style="width: 50%;">Details</th>
-            <th style="width: 50%;">Value</th>
-          </tr>
-        </thead>
-        <tbody>
-    `;
-    data.productSpecifications.forEach(spec => {
-      specsTable += `
-        <tr>
-          <td class="p-2">${spec.detail}</td>
-          <td class="p-2">${spec.value}</td>
-        </tr>
-      `;
-    });
-    specsTable += `</tbody></table>`;
-    specsContainer.innerHTML = specsTable;
-  } else {
-    specsContainer.innerHTML = '<div class="p-2 bg-white rounded border">No specifications added</div>';
-  }
-
-  // Populate pricing information
-  getById('displayIsAnyDiscount').textContent = data.pricing.isAnyDiscount || 'No';
-  getById('displayDiscount').textContent = `${data.pricing.discountPercentage || '0'}%`;
-  getById('displayPriceAfterDiscount').textContent = `₹${data.pricing.priceAfterDiscount || '0'}`;
-  getById('displaySgstAmount').textContent = `₹${data.pricing.sgstAmount || '0'}`;
-  getById('displayCgstAmount').textContent = `₹${data.pricing.cgstAmount || '0'}`;
-  getById('displayFinalPriceWithGst').textContent = `₹${data.pricing.finalPriceWithGst || '0'}`;
-
-  // Populate company information
-  getById('displayCompanyName').textContent = data.companyInfo.name || 'N/A';
-  getById('displayManager').textContent = data.companyInfo.manager || 'N/A';
-  getById('displayEmail').textContent = data.companyInfo.email || 'N/A';
-  getById('displayPhone').textContent = data.companyInfo.phone || 'N/A';
-  getById('displayAddress').textContent = data.companyInfo.address || 'N/A';
-  getById('displayGstNumber').textContent = data.companyInfo.gstNumber || 'N/A';
-
-  // Populate terms and conditions
-  const termsContainer = getById('displayTermsAndConditions');
-  if (data.termsAndConditions && data.termsAndConditions.length > 0) {
-    let termsList = '<ol class="mb-0" style="font-size: 0.95rem;">';
-    data.termsAndConditions.forEach(term => {
-      termsList += `<li class="mb-1">${term}</li>`;
-    });
-    termsList += '</ol>';
-    termsContainer.innerHTML = termsList;
-  } else {
-    termsContainer.innerHTML = 'No terms and conditions specified';
-  }
-
-  // Populate generation date
-  const generatedDate = new Date(data.generatedDate);
-  getById('displayGeneratedDate').textContent = generatedDate.toLocaleString();
-
-  // Scroll to the display section
-  getById('quotationDataDisplay').scrollIntoView({ behavior: 'smooth' });
-}
