@@ -588,15 +588,68 @@ getById('inventoryForm').addEventListener('submit', async function (e) {
     doc.setDrawColor(0, 0, 0);
     doc.line(20, currentY, 190, currentY);
 
-    // Signature section (right side)
-    doc.setFontSize(12);
-    doc.setFont(undefined, "normal");
-    doc.setTextColor(0, 0, 0);
-    doc.text("Authorized Signature", 140, currentY + 20);
+    // Add signature image above signature text
+    let sigHeight = 0;
+    try {
+      // Load signature image as base64
+      const sigImg = await (async function getSigBase64() {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = function () {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            try {
+              const dataURL = canvas.toDataURL('image/png');
+              resolve({ dataURL, width: img.width, height: img.height });
+            } catch (e) {
+              reject(e);
+            }
+          };
+          img.onerror = () => reject(new Error('Signature image failed to load'));
+          img.src = 'images/s.png';
+        });
+      })();
 
-    // Draw signature line
-    doc.setLineWidth(0.3);
-    doc.line(140, currentY + 25, 190, currentY + 25);
+      // Set signature image size and position
+      const sigWidth = 40;
+      sigHeight = sigImg.height * (sigWidth / sigImg.width);
+      const sigX = 140;
+      const sigY = currentY + 5;
+
+      doc.addImage(sigImg.dataURL, 'PNG', sigX, sigY, sigWidth, sigHeight);
+
+      // Add manager name just above signature text in gray
+      doc.setFontSize(10);
+      doc.setTextColor(120, 120, 120);
+      doc.text(companyInfo.manager, sigX, sigY + sigHeight + 0.5);
+
+      // Place signature text just below the manager name (2px gap from image)
+      doc.setFontSize(12);
+      doc.setFont(undefined, "normal");
+      doc.setTextColor(0, 0, 0);
+      doc.text("Authorized Signature", sigX, sigY + sigHeight + 7);
+
+      // Update currentY to below the signature section
+      currentY = sigY + sigHeight + 14;
+    } catch (e) {
+      // If image fails, just show text and line
+      doc.setFontSize(12);
+      doc.setFont(undefined, "normal");
+      doc.setTextColor(0, 0, 0);
+      doc.text("Authorized Signature", 140, currentY + 20);
+      doc.setLineWidth(0.3);
+      doc.line(140, currentY + 25, 190, currentY + 25);
+      // Add manager name in gray just above signature text
+      doc.setFontSize(10);
+      doc.setTextColor(120, 120, 120);
+      doc.text(companyInfo.manager, 140, currentY + 15);
+      currentY += 37;
+    }
+
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
