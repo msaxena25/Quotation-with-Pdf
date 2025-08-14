@@ -1,0 +1,249 @@
+<!-- Read-only quotation data display section -->
+<div id="quotationDataDisplay" class="bg-white p-4 rounded shadow-sm mt-4" style="display: none;">
+  <h2 class="mb-4 text-center">Generated Quotation Data</h2>
+
+  <!-- Customer Information Section -->
+  <div class="row g-3 border rounded p-3 mb-3"
+    style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+    <div class="col-12">
+      <h5 class="text-primary mb-3">Customer Information</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle bg-white">
+          <tbody>
+            <tr>
+              <td class="fw-bold" style="width: 30%;">Customer Name</td>
+              <td id="displayCustomerName"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Phone Number</td>
+              <td id="displayCustomerPhone"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Address</td>
+              <td id="displayCustomerAddress"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Item Details Section -->
+  <div class="row g-3 border rounded p-3 mb-3"
+    style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+    <div class="col-12">
+      <h5 class="text-primary mb-3">Item Details</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle bg-white">
+          <tbody>
+            <tr>
+              <td class="fw-bold" style="width: 30%;">Item Name</td>
+              <td id="displayItemName"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Quantity</td>
+              <td id="displayQuantity"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Amount (per unit)</td>
+              <td id="displayAmount"></td>
+            </tr>
+            <tr class="table-warning">
+              <td class="fw-bold">Total Price</td>
+              <td id="displayTotalPrice" class="fw-bold"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-12 mt-4">
+      <label class="form-label fw-bold">Product Specifications:</label>
+      <div id="displayProductSpecs" class="table-responsive">
+        <!-- Product specifications will be populated here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing Section -->
+  <div class="row g-3 border rounded p-3 mb-3"
+    style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+    <div class="col-12">
+      <h5 class="text-primary mb-3">Price Summary</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle bg-white">
+          <tbody>
+            <tr>
+              <td class="fw-bold" style="width: 60%;">Any Discount Applied?</td>
+              <td id="displayIsAnyDiscount" class="text-end"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Discount Percentage</td>
+              <td id="displayDiscount" class="text-end"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Price After Discount</td>
+              <td id="displayPriceAfterDiscount" class="text-end readonly-highlight"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">SGST Amount (9%)</td>
+              <td id="displaySgstAmount" class="text-end readonly-highlight"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">CGST Amount (9%)</td>
+              <td id="displayCgstAmount" class="text-end readonly-highlight"></td>
+            </tr>
+            <tr class="table-success">
+              <td class="fw-bold">Final Price (With GST)</td>
+              <td id="displayFinalPriceWithGst" class="text-end fw-bold fs-5"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Company Information Section -->
+  <div class="row g-3 border rounded p-3 mb-3"
+    style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+    <div class="col-12">
+      <h5 class="text-primary mb-3">Company Information</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle bg-white">
+          <tbody>
+            <tr>
+              <td class="fw-bold" style="width: 30%;">Company Name</td>
+              <td id="displayCompanyName"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Marketing Manager</td>
+              <td id="displayManager"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Email Address</td>
+              <td id="displayEmail"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Phone Number</td>
+              <td id="displayPhone"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Address</td>
+              <td id="displayAddress"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">GST Number</td>
+              <td id="displayGstNumber"></td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Specialization</td>
+              <td>UPVC Windows</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terms and Conditions Section -->
+  <div class="row g-3 border rounded p-3 mb-3"
+    style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+    <div class="col-12">
+      <h5 class="text-primary mb-3">Terms and Conditions</h5>
+      <div id="displayTermsAndConditions" class="bg-white p-3 rounded border">
+        <!-- Terms will be populated here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Generation Date Section -->
+  <div class="row g-3 border rounded p-3 mb-3"
+    style="border-color: #dee2e6; background-color: #fafafa; margin-top: 10px;">
+    <div class="col-12">
+      <h5 class="text-primary mb-3">Generation Information</h5>
+      <label class="form-label fw-bold">Generated Date:</label>
+      <div id="displayGeneratedDate" class="p-2 bg-white rounded border"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Function to populate the read-only quotation display
+  function populateQuotationDisplay(data) {
+    // Show the display section
+    getById('quotationDataDisplay').style.display = 'block';
+
+    // Populate customer information
+    getById('displayCustomerName').textContent = data.customerInfo.name || 'N/A';
+    getById('displayCustomerPhone').textContent = data.customerInfo.phone || 'N/A';
+    getById('displayCustomerAddress').textContent = data.customerInfo.address || 'N/A';
+
+    // Populate item details
+    getById('displayItemName').textContent = data.itemDetails.itemName || 'N/A';
+    getById('displayQuantity').textContent = data.itemDetails.quantity || '0';
+    getById('displayAmount').textContent = `₹${data.itemDetails.amountPerUnit || '0'}`;
+    getById('displayTotalPrice').textContent = `₹${data.itemDetails.totalPrice || '0'}`;
+
+    // Populate product specifications
+    const specsContainer = getById('displayProductSpecs');
+    if (data.productSpecifications && data.productSpecifications.length > 0) {
+      let specsTable = `
+      <table class="table table-bordered align-middle">
+        <thead class="table-light">
+          <tr>
+            <th style="width: 50%;">Details</th>
+            <th style="width: 50%;">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+      data.productSpecifications.forEach(spec => {
+        specsTable += `
+        <tr>
+          <td class="p-2">${spec.detail}</td>
+          <td class="p-2">${spec.value}</td>
+        </tr>
+      `;
+      });
+      specsTable += `</tbody></table>`;
+      specsContainer.innerHTML = specsTable;
+    } else {
+      specsContainer.innerHTML = '<div class="p-2 bg-white rounded border">No specifications added</div>';
+    }
+
+    // Populate pricing information
+    getById('displayIsAnyDiscount').textContent = data.pricing.isAnyDiscount || 'No';
+    getById('displayDiscount').textContent = `${data.pricing.discountPercentage || '0'}%`;
+    getById('displayPriceAfterDiscount').textContent = `₹${data.pricing.priceAfterDiscount || '0'}`;
+    getById('displaySgstAmount').textContent = `₹${data.pricing.sgstAmount || '0'}`;
+    getById('displayCgstAmount').textContent = `₹${data.pricing.cgstAmount || '0'}`;
+    getById('displayFinalPriceWithGst').textContent = `₹${data.pricing.finalPriceWithGst || '0'}`;
+
+    // Populate company information
+    getById('displayCompanyName').textContent = data.companyInfo.name || 'N/A';
+    getById('displayManager').textContent = data.companyInfo.manager || 'N/A';
+    getById('displayEmail').textContent = data.companyInfo.email || 'N/A';
+    getById('displayPhone').textContent = data.companyInfo.phone || 'N/A';
+    getById('displayAddress').textContent = data.companyInfo.address || 'N/A';
+    getById('displayGstNumber').textContent = data.companyInfo.gstNumber || 'N/A';
+
+    // Populate terms and conditions
+    const termsContainer = getById('displayTermsAndConditions');
+    if (data.termsAndConditions && data.termsAndConditions.length > 0) {
+      let termsList = '<ol class="mb-0" style="font-size: 0.95rem;">';
+      data.termsAndConditions.forEach(term => {
+        termsList += `<li class="mb-1">${term}</li>`;
+      });
+      termsList += '</ol>';
+      termsContainer.innerHTML = termsList;
+    } else {
+      termsContainer.innerHTML = 'No terms and conditions specified';
+    }
+
+    // Populate generation date
+    const generatedDate = new Date(data.generatedDate);
+    getById('displayGeneratedDate').textContent = generatedDate.toLocaleString();
+
+    // Scroll to the display section
+    getById('quotationDataDisplay').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
